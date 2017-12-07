@@ -1,0 +1,21 @@
+﻿body {
+    background-color: white;
+}
+
+img {
+    max-width: 90%;
+    max-height: 100%;
+    margin: auto;
+    display: block;
+}
+
+.photo-div {
+    border-color: white;
+    border-style: solid;
+    width: 200px;
+    /* height: 300px; */
+    border-width: 2px;
+}
+
+.photoRaw .modal-body {
+}

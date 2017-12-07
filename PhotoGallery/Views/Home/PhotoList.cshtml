@@ -1,0 +1,106 @@
+﻿@model IEnumerable<PhotoGallery.Models.Photo>
+
+@{
+    ViewBag.Title = "Gallery";
+}
+
+<link href="~/Content/photo.css" rel="stylesheet" />
+
+<script>
+    $(document).on("click", ".selectorFilter", function () {
+        var photoDescription = $(this).data('description');
+        var photoLink = $(this).data('link');
+
+        // $(".modal-body #photoDescription").val(photoDescription);
+        $(".photoRaw #photoLink").attr("src", photoLink);
+    });
+
+</script>
+
+<!-- Modal -->
+<div class="modal fade" id="photoModal" role="dialog">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal">&times;</button>
+        @*<h4 class="modal-title">Modal Header</h4>*@
+    </div>
+    <div class="photoRaw">
+        <img id="photoLink" />
+        @*<input type="text" name="photoDescription" id="photoDescription" value="" />*@
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-block" data-dismiss="modal">Close</button>
+    </div>
+</div> <!-- / Modal -->
+
+<div class="container">
+    <h2 id="Album_Title">Visiting Park</h2>
+    <p id="Album_Description">Weekend road trip.</p>
+
+    <div class="row">
+        <div class="col-md-4">
+            @if (Model.Count() >= 1)
+            {
+                <div class="thumbnail">
+                    @for (int i = 0; i < Model.Count(); i = i + 3)
+                {
+                        <a href="#photoModalDialog"
+                           data-toggle="modal" data-target="#photoModal"
+                           data-description="@Model.ElementAt(i).Description"
+                           data-link="@Url.Content(Model.ElementAt(i).UrlPath)"
+                           class="selectorFilter">
+                            <img alt="@Model.ElementAt(i).Photo_Id"
+                                 src="@Url.Content(Model.ElementAt(i).UrlPath)" />
+                            <div class="caption">
+                                <p>@Model.ElementAt(i).Description</p>
+                            </div>
+                        </a>
+                    }
+                </div>
+            }
+        </div>
+        <div class="col-md-4">
+            @if (Model.Count() >= 2)
+            {
+                <div class="thumbnail">
+                    @for (int i = 1; i < Model.Count(); i = i + 3)
+                    {
+                        <a href="#photoModalDialog"
+                           data-toggle="modal" data-target="#photoModal"
+                           data-description="@Model.ElementAt(i).Description"
+                           data-link="@Url.Content(Model.ElementAt(i).UrlPath)"
+                           class="selectorFilter">
+                            <img alt="@Model.ElementAt(i).Photo_Id"
+                                 src="@Url.Content(Model.ElementAt(i).UrlPath)" />
+                            <div class="caption">
+                                <p>@Model.ElementAt(i).Description</p>
+                            </div>
+                        </a>
+                    }
+                </div>
+            }
+        </div>
+        <div class="col-md-4">
+            @if (Model.Count() >= 3)
+            {
+                <div class="thumbnail">
+                    @for (int i = 2; i < Model.Count(); i = i + 3)
+                    {
+                        <a href="#photoModalDialog"
+                           data-toggle="modal" data-target="#photoModal"
+                           data-description="@Model.ElementAt(i).Description"
+                           data-link="@Url.Content(Model.ElementAt(i).UrlPath)"
+                           class="selectorFilter">
+                            <img alt="@Model.ElementAt(i).Photo_Id"
+                                 src="@Url.Content(Model.ElementAt(i).UrlPath)" />
+                            <div class="caption">
+                                <p>@Model.ElementAt(i).Description</p>
+                            </div>
+                        </a>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+

@@ -156,15 +156,27 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Photo.cs" />
+    <Compile Include="Models\PhotoVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="RawImage\20140726-白冷圳-IMAG0740.jpg" />
+    <Content Include="RawImage\20140726-白冷圳-IMAG0741.jpg" />
+    <Content Include="RawImage\20140726-白冷圳-IMAG0742.jpg" />
+    <Content Include="RawImage\20140726-白冷圳-IMAG0742_2_2.jpg" />
+    <Content Include="RawImage\20140726-白冷圳-IMAG0743.jpg" />
+    <Content Include="RawImage\20140726-白冷圳-IMAG0743_2.jpg" />
+    <Content Include="RawImage\Whistler_BC_Canada.jpg" />
+    <Content Include="RawImage\Whistler_BC_Canada2.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\photo.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Screen\PhotoLib.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -195,10 +207,11 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\PhotoList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Thumbnail\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
