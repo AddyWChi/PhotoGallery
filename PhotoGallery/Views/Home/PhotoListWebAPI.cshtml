@@ -1,0 +1,139 @@
+﻿@model String
+
+@{
+    ViewBag.Title = "Gallery (Web API)";
+}
+
+<link href="~/Content/photo.css" rel="stylesheet" />
+
+@section photoScript {
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
+    <script id="photoTemplate" type="text/x-jQuery-tmpl">
+        <a href="#photoModalDialog"
+           data-toggle="modal" data-target="#photoModal"
+           data-description="${Description}"
+           data-link="${UrlPath}"
+           class="selectorFilter">
+            <img alt="${Photo_Id}"
+                 src="${UrlPath}" />
+            <div class="caption">
+                <p>${Description}</p>
+            </div>
+        </a>
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            GetAllPhotos('RawImage');
+        });
+
+        $(document).on("click", ".selectorFilter", function () {
+            var photoDescription = $(this).data('description');
+            var photoLink = $(this).data('link');
+
+            // $(".modal-body #photoDescription").val(photoDescription);
+            $(".photoRaw #photoLink").attr("src", photoLink);
+        });
+
+        function GetAllPhotos(folder) {
+            $.support.cors = false;
+            $.ajax({
+                url: 'http://localhost:8944/api/PhotoAPI/GetPhotos/',
+                type: 'GET',
+                data: { 'folder': folder},
+                dataType: 'json',
+                success: function (data) {
+                    WriteResponse(data);
+                },
+                error: function (erJqXHR, erTextStatus, erErrorThrown) {
+                    alert(erJqXHR + '\n' + erTextStatus + '\n' + erErrorThrown);
+                }
+            });
+        }
+
+        function GetPhoto(guidId) {
+            jQuery.support.cors = false;
+            $.ajax({
+                url: 'http://localhost:8944/api/PhotoAPI/' + guidId,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    ShowPhoto(photo);
+                },
+                error: function (erJqXHR, erTextStatus, erErrorThrown) {
+                    alert(erJqXHR + '\n' + erTextStatus + '\n' + erErrorThrown);
+                }
+            });
+        }
+
+        function WriteResponse(photos) {
+            if (photos.length >= 3) {
+                $("#column3").show();
+            } 
+
+            if (photos.length >= 2) {
+                $("#column2").show();
+            } 
+
+            if (photos.length >= 1) {
+                $("#column1").show();
+            } 
+
+            var col1 = 0, col2 = 1, col3 = 2;
+            for (var i = 0; i < photos.length; i++) {
+                if ((col1 < photos.length) && (photos.length >= 1)) {
+                    $("#photoTemplate").tmpl(photos[col1]).appendTo("#column1");
+                    col1 = col1 + 3;
+                }
+
+                if ((col2 < photos.length) && (photos.length >= 2)) {
+                    $("#photoTemplate").tmpl(photos[col2]).appendTo("#column2");
+                    col2 = col2 + 3;
+                }
+
+                if ((col3 < photos.length) && (photos.length >= 3)) {
+                    $("#photoTemplate").tmpl(photos[col3]).appendTo("#column3");
+                    col3 = col3 + 3;
+                }
+            }
+        }
+    </script>
+}
+
+<!-- Modal -->
+<div class="modal fade" id="photoModal" role="dialog">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal">&times;</button>
+        @*<h4 class="modal-title">Modal Header</h4>*@
+    </div>
+    <div class="photoRaw">
+        <img id="photoLink" />
+        @*<input type="text" name="photoDescription" id="photoDescription" value="" />*@
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-block" data-dismiss="modal">Close</button>
+    </div>
+</div> <!-- / Modal -->
+
+<div class="container" id="pageContent">
+    <h2 id="Album_Title">Visiting Park (Web API)</h2>
+    <p id="Album_Description">Weekend road trip. (Web API)</p>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="thumbnail" id="column1" style="display:none">
+                @*Append here*@
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail" id="column2" style="display:none">
+                @*Append here*@
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail" id="column3" style="display:none">
+                @*Append here*@
+            </div>
+        </div>
+    </div>
+</div>

@@ -30,8 +30,19 @@ namespace PhotoGallery.Models
         [Timestamp]
         public Byte[] Timestamp { get; set; }
 
+        /// <summary>
+        /// Location of file.
+        /// </summary>
         public string PhyicalFilePath { get; set; }
+
+        /// <summary>
+        /// Url path.
+        /// </summary>
         public string UrlPath { get; set; }
+
+        /// <summary>
+        /// Description of photo.
+        /// </summary>
         public string Description { get; set; }
 
         public Photo(string urlPath, string filePath, string description)
