@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "UploadPhoto";
+}
+
+<style>
+    .top-buffer {
+        margin-top: 10px;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $('#id_imageFile').change(function () {
+            console.log('Select file');
+            console.log(this.files[0].name);
+            $('#id_targetFileName').val(this.files[0].name);
+            $('#id_targetFileName').select();
+        });  // $('#id_thumbImg')
+    });  // $(document).ready(...)
+</script>
+
+<div class="container" id="pageContent">
+    <form name="form_UploadImg" 
+          method="post" 
+          enctype="multipart/form-data" 
+          action="/api/Upload/PostFile"
+          target="_blank">
+        <fieldset>
+            <legend>Upload Image File</legend>
+            <div class="row top-buffer">
+                <div class="col-sm-12">
+                    <input name="imageFile" type="file" id="id_imageFile" />
+                </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="col-sm-3">
+                    <label for="targetFileName">New File Name:</label> 
+                </div>
+                <div class="col-sm-9">
+                    <input name="targetFileName" id="id_targetFileName" type="text" />
+                </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="col-sm-3">
+                    <label for="description">Description:</label>
+                </div>
+                <div class="col-sm-9">
+                    <input name="description" id="id_description" type="text" />
+                </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="col-sm-12">
+                    <input type="submit" value="Submit" id="id_submit" />
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+</div>

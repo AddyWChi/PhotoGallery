@@ -26,5 +26,19 @@ namespace PhotoGallery.Controllers
         {
             return View();
         }
+
+        public ActionResult UploadPhoto()
+        {
+            ViewBag.Title = "Upload Photo";
+
+            return View();
+        }
+
+        public ActionResult UploadPhotoAjax()
+        {
+            ViewBag.Title = "Upload Photo (AJax)";
+
+            return View();
+        }
     }
 }

@@ -29,29 +29,23 @@ namespace PhotoGallery.Controllers
 
             try
             {
-                StringBuilder sb = new StringBuilder(); // Holds the response body
-
                 // Read the form data and return an async task.
                 await Request.Content.ReadAsMultipartAsync(provider);
 
-                // This illustrates how to get the form data.
-                foreach (var key in provider.FormData.AllKeys)
-                {
-                    foreach (var val in provider.FormData.GetValues(key))
-                    {
-                        sb.Append(string.Format("{0}: {1}\n", key, val));
-                    }
-                }
+                string description = provider.FormData.GetValues("description")[0];
+                string fileNameNew = provider.FormData.GetValues("targetFileName")[0];
 
                 // This illustrates how to get the file names for uploaded files.
                 foreach (var file in provider.FileData)
                 {
                     FileInfo fileInfo = new FileInfo(file.LocalFileName);
-                    sb.Append(string.Format("Uploaded file: {0} ({1} bytes)\n", fileInfo.Name, fileInfo.Length));
+                    fileInfo.CopyTo(Path.Combine(root, fileNameNew));
+                    fileInfo.Delete();
                 }
+
                 return new HttpResponseMessage()
                 {
-                    Content = new StringContent(sb.ToString())
+                    Content = new StringContent("Success")
                 };
             }
             catch (System.Exception e)
