@@ -219,6 +219,7 @@
     <Content Include="Views\Home\PhotoList.cshtml" />
     <Content Include="Views\Home\PhotoListWebAPI.cshtml" />
     <Content Include="Views\Home\UploadPhoto.cshtml" />
+    <Content Include="Views\Home\UploadPhotoAjax.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

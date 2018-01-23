@@ -24,6 +24,7 @@ namespace PhotoGallery.Controllers
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
 
+            string result = "Error";
             string root = HttpContext.Current.Server.MapPath("~/RawImage");
             var provider = new MultipartFormDataStreamProvider(root);
 
@@ -38,14 +39,23 @@ namespace PhotoGallery.Controllers
                 // This illustrates how to get the file names for uploaded files.
                 foreach (var file in provider.FileData)
                 {
+                    var filePathNew = Path.Combine(root, fileNameNew);
                     FileInfo fileInfo = new FileInfo(file.LocalFileName);
-                    fileInfo.CopyTo(Path.Combine(root, fileNameNew));
+                    if (File.Exists(filePathNew))
+                    {
+                        result = "File with same name already exist.";
+                        fileInfo.Delete();
+                        continue;
+                    }
+
+                    fileInfo.CopyTo(filePathNew);
                     fileInfo.Delete();
+                    result = "Success";
                 }
 
                 return new HttpResponseMessage()
                 {
-                    Content = new StringContent("Success")
+                    Content = new StringContent(result)
                 };
             }
             catch (System.Exception e)
